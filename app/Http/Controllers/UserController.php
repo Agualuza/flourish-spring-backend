@@ -11,7 +11,13 @@ use App\APIService;
 class UserController extends Controller
 {
     public function loginCustomer(Request $request){
-        $credentials = $request->only(['email','password']);
+        $credentials = null;
+        if(isset($request['user'])){
+            $u = $request['user'];
+            $credentials = ["email" => $u['email'], "password" => $u['password']];
+        } else {
+            return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+        }
 
         if(Auth::attempt($credentials)){
             if(Auth::user()->user_type != "C"){
@@ -30,7 +36,13 @@ class UserController extends Controller
     }
 
     public function loginBank(Request $request){
-        $credentials = $request->only(['email','password']);
+        $credentials = null;
+        if(isset($request['user'])){
+            $u = $request['user'];
+            $credentials = ["email" => $u['email'], "password" => $u['password']];
+        } else {
+            return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+        }
 
         if(Auth::attempt($credentials)){
             if(Auth::user()->user_type != "B"){
