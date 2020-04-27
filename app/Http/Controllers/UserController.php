@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\APIService;
+use App\User;
 
 
 class UserController extends Controller
@@ -59,4 +60,5 @@ class UserController extends Controller
 
         return APIService::sendJson(["status" => "NOK","message" => "Email e/ou senha inválidos"]);   
     }
+
 }

@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -48,4 +50,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getUserByToken($user_id,$token){
+        $user = User::find($user_id);
+        $user_token = $user->token ? $user->token : null;
+        return $user_token == $token ? $user : null;
+    }
 }

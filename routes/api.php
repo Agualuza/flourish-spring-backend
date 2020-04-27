@@ -15,3 +15,4 @@ use Illuminate\Http\Request;
 
 Route::post('bank/login', ['middleware' => 'cors', 'uses' => 'UserController@loginBank']);
 Route::post('customer/login', ['middleware' => 'cors', 'uses' => 'UserController@loginCustomer']);
+Route::post('customer/options', ['middleware' => 'cors', 'uses' => 'OptionController@options']);
