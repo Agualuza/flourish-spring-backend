@@ -56,4 +56,5 @@ class User extends Authenticatable
         $user_token = $user->token ? $user->token : null;
         return $user_token == $token ? $user : null;
     }
+    
 }
