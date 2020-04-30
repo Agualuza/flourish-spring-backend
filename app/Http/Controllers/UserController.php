@@ -65,7 +65,7 @@ class UserController extends Controller
         
         if(isset($request['user'])){
             $u = $request['user'];
-            $uid = $u['user_id'];
+            $uid = $u['id'];
             $token = $u['token'];
         } else {
             return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
@@ -87,7 +87,7 @@ class UserController extends Controller
         
         if(isset($request['user'])){
             $u = $request['user'];
-            $uid = $u['user_id'];
+            $uid = $u['id'];
             $token = $u['token'];
         } else {
             return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
