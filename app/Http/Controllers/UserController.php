@@ -73,11 +73,11 @@ class UserController extends Controller
 
         $user = User::getUserByToken($uid,$token);
         if($user){
-            if(Auth::user()->user_type != "C"){
+            if($user->user_type != "C"){
                 return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);
             }
 
-            return APIService::sendJson(["status" => "OK","response" => Auth::user(), "message" => "success"]);
+            return APIService::sendJson(["status" => "OK","response" => $user, "message" => "success"]);
         }
 
         return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);   
@@ -95,11 +95,11 @@ class UserController extends Controller
 
         $user = User::getUserByToken($uid,$token);
         if($user){
-            if(Auth::user()->user_type != "B"){
+            if($user->user_type != "B"){
                 return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);
             }
 
-            return APIService::sendJson(["status" => "OK","response" => Auth::user(), "message" => "success"]);
+            return APIService::sendJson(["status" => "OK","response" => $user, "message" => "success"]);
         }
 
         return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);   
