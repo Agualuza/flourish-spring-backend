@@ -61,4 +61,47 @@ class UserController extends Controller
         return APIService::sendJson(["status" => "NOK","message" => "Email e/ou senha inválidos"]);   
     }
 
+    public function tokenCustomer(Request $request){
+        
+        if(isset($request['user'])){
+            $u = $request['user'];
+            $uid = $u['user_id'];
+            $token = $u['token'];
+        } else {
+            return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+        }
+
+        $user = User::getUserByToken($uid,$token);
+        if($user){
+            if(Auth::user()->user_type != "C"){
+                return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);
+            }
+
+            return APIService::sendJson(["status" => "OK","response" => Auth::user(), "message" => "success"]);
+        }
+
+        return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);   
+    }
+
+    public function tokenBank(Request $request){
+        
+        if(isset($request['user'])){
+            $u = $request['user'];
+            $uid = $u['user_id'];
+            $token = $u['token'];
+        } else {
+            return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+        }
+
+        $user = User::getUserByToken($uid,$token);
+        if($user){
+            if(Auth::user()->user_type != "B"){
+                return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);
+            }
+
+            return APIService::sendJson(["status" => "OK","response" => Auth::user(), "message" => "success"]);
+        }
+
+        return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);   
+    }
 }

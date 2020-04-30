@@ -17,3 +17,5 @@ Route::post('bank/login', ['middleware' => 'cors', 'uses' => 'UserController@log
 Route::post('customer/login', ['middleware' => 'cors', 'uses' => 'UserController@loginCustomer']);
 Route::post('customer/options', ['middleware' => 'cors', 'uses' => 'OptionController@options']);
 Route::post('customer/score/create', ['middleware' => 'cors', 'uses' => 'ScoreController@create']);
+Route::post('customer/token', ['middleware' => 'cors', 'uses' => 'UserController@tokenCustomer']);
+Route::post('bank/token', ['middleware' => 'cors', 'uses' => 'UserController@tokenBank']);
