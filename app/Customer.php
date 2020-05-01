@@ -99,7 +99,7 @@ class Customer extends Model
 
         foreach ($this->transaction as $t) {
             if(!$t->rebalanced){
-                $transactions[] = $t;
+                $transactions[] = ["transaction" => $t, "option_transaction" => $t->option->name];
             }
         }
 
