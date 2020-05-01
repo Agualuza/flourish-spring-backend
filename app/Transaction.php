@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Transaction extends Model
 {
     protected $table = 'transaction';
+    const MAX_VAR_RATE = 0.4;
 
     public static function hasOptionsTransactionsOpen($customer,$option_id,$amount){
         $transactions = DB::table('transaction')
@@ -49,6 +50,39 @@ class Transaction extends Model
             $rebalanceTransaction->transaction_status = "O";
             $rebalanceTransaction->rebalanced = 1;
             $rebalanceTransaction->save();
+        }
+
+        return true;
+    }
+
+    public static function lock($customer,$type,$amount){
+        if($type == "F"){
+            return true;
+        }
+
+        $transactions = DB::table('transaction')
+        ->join('option', 'transaction.option_id', '=', 'option.id')
+        ->select(DB::raw('transaction.id,transaction.amount,transaction.option_id,option.option_type'))
+        ->whereRaw('customer_id = ? and transaction_type = ? and transaction_status = ?',[$customer->id,"B","O"])
+        ->get();
+
+        if(count($transactions) == 0){
+            return false;
+        }
+
+        $totalVar = 0;
+
+        foreach ($transactions as $t) {
+            if($t->option_type == "V"){
+                $totalVar += $t->amount;
+            }
+        }
+
+        $total = $customer->balance + $customer->cash;
+        $rate = ($totalVar + $amount)/$total;
+
+        if($rate > Transaction::MAX_VAR_RATE){
+            return false;
         }
 
         return true;

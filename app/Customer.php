@@ -36,13 +36,15 @@ class Customer extends Model
     public function makeTransaction($amount,$type,$option_id){
         $options = Option::getAllOptions($this);
         $array = array();
+        $fixedOrVar = array();
 
         foreach ($options as $op) {
             $array[$op['option']['id']] = $op["allow"];
+            $fixedOrVar[$op['option']['id']] = $op["option"]["option_type"];
         }
 
         if($type == "B"){
-            if($this->balance >= $amount && $array[$option_id]){
+            if($this->balance >= $amount && $array[$option_id] && Transaction::lock($this,$fixedOrVar[$option_id],$amount)){
                 $this->balance -= $amount;
                 $this->cash += $amount;
             } else {
