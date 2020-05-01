@@ -17,8 +17,13 @@ class InvestmentController extends Controller
             $amount = $request['amount'];
 
             $user = User::getUserByToken($uid,$token);
-            $transaction = new Transaction();
+            
+            if($user->user_type != "C"){
+                return APIService::sendJson(["status" => "NOK","message" => "você não tem acesso a essa operação"]);
+            }
 
+            $transaction = new Transaction();
+            
             $transaction->bank_id = $user->customer->bank_id;
             $transaction->customer_id = $user->customer->id;
             $transaction->option_id = 1;
