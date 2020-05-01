@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Option;
 use App\Transaction;
+use stdClass;
 
 class Customer extends Model
 {
@@ -103,6 +104,25 @@ class Customer extends Model
         }
 
         return $transactions;
+    }
+
+    public function loadCustomer(){
+        $customer = $this;
+        
+        $response = new stdClass;
+        $response->id = $customer->id;
+        $response->nome = $customer->user->name;
+        $response->email = $customer->user->email;
+        $response->level_id = $customer->level_id;
+        $response->level = $customer->level->name;
+        $response->score = $customer->score;
+        $response->balance = $customer->balance;
+        $response->cash = $customer->cash;
+        $response->cpf = $customer->cpf;
+        $response->created_at = $customer->created_at;
+        $response->updated_at = $customer->updated_at;
+
+        return $response;
     }
 
 }

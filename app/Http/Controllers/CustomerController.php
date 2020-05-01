@@ -60,4 +60,23 @@ class CustomerController extends Controller
 
         return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
     }
+
+    public function loadScore(Request $request){
+        if($request['credentials']){
+            $uid = $request['credentials']['id'];
+            $token = $request['credentials']['token'];
+
+            $user = User::getUserByToken($uid,$token);
+
+            if($user->user_type != "C"){
+                return APIService::sendJson(["status" => "NOK","message" => "você não tem acesso a essa operação"]);
+            }
+
+            $response = $user->customer->loadCustomer();
+            
+            return APIService::sendJson(["status" => "OK","response" => $response , "message" => "sucesso"]);
+        }
+
+        return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+    }
 }
