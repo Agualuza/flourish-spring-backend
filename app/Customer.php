@@ -65,4 +65,15 @@ class Customer extends Model
 
         return false;
     }
+
+    public function deposit($amount){
+        $this->balance += $amount;
+        $this->save();
+    }
+
+    public function withdraw($amount){
+        $this->balance -= $amount;
+        $this->save();
+    }
+
 }

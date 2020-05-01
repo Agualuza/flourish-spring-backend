@@ -20,3 +20,4 @@ Route::post('customer/score/create', ['middleware' => 'cors', 'uses' => 'ScoreCo
 Route::post('customer/token', ['middleware' => 'cors', 'uses' => 'UserController@tokenCustomer']);
 Route::post('bank/token', ['middleware' => 'cors', 'uses' => 'UserController@tokenBank']);
 Route::post('customer/transaction', ['middleware' => 'cors', 'uses' => 'InvestmentController@transaction']);
+Route::post('customer/wallet', ['middleware' => 'cors', 'uses' => 'CustomerController@wallet']);
