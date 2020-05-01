@@ -14,7 +14,7 @@ class InvestmentController extends Controller
             $u = $request['transaction']['user'];
             $uid = $u['id'];
             $token = $u['token'];
-            $amount = $request['amount'];
+            $amount = $request['transaction']['amount'];
 
             $user = User::getUserByToken($uid,$token);
 
@@ -30,12 +30,13 @@ class InvestmentController extends Controller
             $transaction->amount = $amount;
             $transaction->transaction_type = "B";
             $transaction->transaction_status = "O";
+            $transaction->save();
             $done = $user->customer->makeTransaction($transaction->amount,$transaction->transaction_type);
 
             if($done){
-                return APIService::sendJson(["status" => "OK","message" => "success"]);
+                return APIService::sendJson(["status" => "OK","message" => "sucesso"]);
             }
-            return APIService::sendJson(["status" => "NOK","message" => "Desculpe, saldo insuficiente para realizar essa transação"]);
+            return APIService::sendJson(["status" => "NOK","message" => "desculpe, saldo insuficiente para realizar essa transação"]);
         }
 
         return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);

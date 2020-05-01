@@ -33,7 +33,6 @@ class Customer extends Model
 
     public function makeTransaction($amount,$type){
         if($type == "B"){
-
             if($this->balance >= $amount){
                 $this->balance -= $amount;
                 $this->cash += $amount;
