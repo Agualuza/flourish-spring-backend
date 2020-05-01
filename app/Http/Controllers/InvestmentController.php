@@ -13,7 +13,6 @@ class InvestmentController extends Controller
             $u = $request['user'];
             $uid = $u['id'];
             $token = $u['token'];
-            $balance = $u['balance'];
             $amount = $request['amount'];
 
             $user = User::getUserByToken($uid,$token);
