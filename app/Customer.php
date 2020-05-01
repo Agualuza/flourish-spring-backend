@@ -15,6 +15,16 @@ class Customer extends Model
         return $this->hasMany('App\Transaction');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo('App\Level');
+    }
+
     public function updateLevel() {
         $level_id = null;
         if($this->score >= 5000) {
