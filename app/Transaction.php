@@ -36,8 +36,21 @@ class Transaction extends Model
         foreach($array as $transaction){
             $transaction->save();
         }
+        
+        $diff = $total - $amount;
+
+        if($diff){
+            $rebalanceTransaction = new Transaction();
+            $rebalanceTransaction->bank_id = $customer->bank_id;
+            $rebalanceTransaction->customer_id = $customer->id;
+            $rebalanceTransaction->option_id = $option_id;
+            $rebalanceTransaction->amount = $diff;
+            $rebalanceTransaction->transaction_type = "B";
+            $rebalanceTransaction->transaction_status = "C";
+            $rebalanceTransaction->rebalanced = 1;
+            $rebalanceTransaction->save();
+        }
 
         return true;
     }
-
 }
