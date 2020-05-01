@@ -22,4 +22,42 @@ class OptionController extends Controller
         
         return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
     }
+
+    public function stock(Request $request){
+        if(isset($request['credentials'])){
+            $user = User::getUserByToken($request['credentials']['user_id'],$request['credentials']['token']);
+
+            if($user == null){
+                return APIService::sendJson(["status" => "NOK","message" => "token inválido"]);
+            }
+
+            $service = new APIService;
+
+            $url1 = "https://api.hgbrasil.com/finance/stock_price?key=bd7138b1&symbol=bbas3";
+            $url2 = "https://api.hgbrasil.com/finance/stock_price?key=bd7138b1&symbol=petr4";
+            $url3 = "https://api.hgbrasil.com/finance/stock_price?key=bd7138b1&symbol=itub4";
+            $url4 = "https://api.hgbrasil.com/finance/stock_price?key=bd7138b1&symbol=mglu3";
+
+            $bb = $service->getHttpRequest($url1);
+            $petrobras = $service->getHttpRequest($url2);
+            $itau = $service->getHttpRequest($url3);
+            $magalu = $service->getHttpRequest($url4);
+
+            $bbTicker = "BBAS3";
+            $itauTicker = "ITUB4";
+            $petrobrasTicker = "PETR4";
+            $magaluTicker = "MGLU4";
+            
+            $stockArray = array();
+            $stockArray[] = $bb;
+            $stockArray[] = $petrobras;
+            $stockArray[] = $itau;
+            $stockArray[] = $magalu;
+            $tickers = [$bbTicker,$petrobrasTicker,$itauTicker,$magaluTicker];
+
+            return APIService::sendJson(["status" => "OK", "response" => ["tickers" => $tickers, "stocks" => $stockArray], "message" => "sucesso"]);
+        } 
+        
+        return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+    }
 }

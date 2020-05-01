@@ -22,3 +22,4 @@ Route::post('bank/token', ['middleware' => 'cors', 'uses' => 'UserController@tok
 Route::post('customer/transaction', ['middleware' => 'cors', 'uses' => 'InvestmentController@transaction']);
 Route::post('customer/wallet', ['middleware' => 'cors', 'uses' => 'CustomerController@wallet']);
 Route::post('customer/load/transaction', ['middleware' => 'cors', 'uses' => 'CustomerController@loadTransactions']);
+Route::post('general/load/stock', ['middleware' => 'cors', 'uses' => 'OptionController@stock']);
