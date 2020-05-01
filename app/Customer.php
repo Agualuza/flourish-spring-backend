@@ -10,6 +10,11 @@ class Customer extends Model
 {
     protected $table = "customer";
 
+    public function transaction()
+    {
+        return $this->hasMany('App\Transaction');
+    }
+
     public function updateLevel() {
         $level_id = null;
         if($this->score >= 5000) {
@@ -76,6 +81,18 @@ class Customer extends Model
     public function withdraw($amount){
         $this->balance -= $amount;
         $this->save();
+    }
+
+    public function loadAllNotRebalancedTransactions(){
+        $transactions = array();
+
+        foreach ($this->transaction as $t) {
+            if(!$t->rebalanced){
+                $transactions[] = $t;
+            }
+        }
+
+        return $transactions;
     }
 
 }

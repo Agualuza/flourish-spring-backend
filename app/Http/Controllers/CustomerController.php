@@ -37,4 +37,27 @@ class CustomerController extends Controller
 
         return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
     }
+
+    public function loadTransactions(Request $request){
+        if($request['credentials']){
+            $uid = $request['credentials']['id'];
+            $token = $request['credentials']['token'];
+
+            $user = User::getUserByToken($uid,$token);
+
+            if($user->user_type != "C"){
+                return APIService::sendJson(["status" => "NOK","message" => "você não tem acesso a essa operação"]);
+            }
+
+            $transactions = $user->customer->loadAllNotRebalancedTransactions();
+
+            if($transactions){
+                return APIService::sendJson(["status" => "OK","response" => $transactions, "message" => "sucesso"]);
+            }
+
+            return APIService::sendJson(["status" => "OK","response" => [], "message" => "você não possui nenhuma transação"]);
+        }
+
+        return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+    }
 }
