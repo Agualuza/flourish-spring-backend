@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Option;
+use App\Transaction;
 
 class Customer extends Model
 {
@@ -31,9 +33,16 @@ class Customer extends Model
         return 0;
     }
 
-    public function makeTransaction($amount,$type){
+    public function makeTransaction($amount,$type,$option_id){
+        $options = Option::getAllOptions($this);
+        $array = array();
+
+        foreach ($options as $op) {
+            $array[$op['option']['id']] = $op["allow"];
+        }
+
         if($type == "B"){
-            if($this->balance >= $amount){
+            if($this->balance >= $amount && $array[$option_id]){
                 $this->balance -= $amount;
                 $this->cash += $amount;
             } else {
@@ -41,7 +50,8 @@ class Customer extends Model
             }
 
         } else {
-            if($this->cash >= $amount){
+
+            if($this->cash >= $amount && Transaction::hasOptionsTransactionsOpen($this,$option_id,$amount)){
                 $this->balance += $amount;
                 $this->cash -= $amount;
             } else {
