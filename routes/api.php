@@ -30,3 +30,4 @@ Route::post('general/load/stablecoins', ['middleware' => 'cors', 'uses' => 'Opti
 Route::post('general/load/teasure', ['middleware' => 'cors', 'uses' => 'OptionController@soon']);
 Route::post('bank/load/customer', ['middleware' => 'cors', 'uses' => 'BankController@loadCustomers']);
 Route::post('bank/dashboard', ['middleware' => 'cors', 'uses' => 'BankController@dashboard']);
+Route::post('bank/load/transaction', ['middleware' => 'cors', 'uses' => 'BankController@loadTransactions']);
