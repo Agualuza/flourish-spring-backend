@@ -109,7 +109,8 @@ class Customer extends Model
                 $nt->amount = $t->amount;
                 $nt->transaction_type = $t->transaction_type;
                 $nt->transaction_status = $t->transaction_status;
-                $transactions[] = ["transaction" =>$nt, "date_time" => $t->created_at];
+                $nt->date_time = $t->created_at;
+                $transactions[] = $nt;
             }
         }
 
