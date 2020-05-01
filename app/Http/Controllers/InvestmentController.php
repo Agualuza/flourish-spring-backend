@@ -31,7 +31,7 @@ class InvestmentController extends Controller
             $transaction->option_id = $oid;
             $transaction->amount = $amount;
             $transaction->transaction_type = $type;
-            $transaction->transaction_status = "O";
+            $transaction->transaction_status = $type == "S" ? "C" : "O";
             $done = $user->customer->makeTransaction($transaction->amount,$transaction->transaction_type,$transaction->option_id);
 
             if($done){
