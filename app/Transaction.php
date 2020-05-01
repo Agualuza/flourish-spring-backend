@@ -12,7 +12,7 @@ class Transaction extends Model
 
     public function option()
     {
-        return $this->hasOne('App\Option');
+        return $this->belongsTo('App\Option');
     }
 
     public static function hasOptionsTransactionsOpen($customer,$option_id,$amount){
