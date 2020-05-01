@@ -99,7 +99,18 @@ class Customer extends Model
 
         foreach ($this->transaction as $t) {
             if(!$t->rebalanced){
-                $transactions[] = $t;
+                $nt = new stdClass;
+                $nt->id = $t->id;
+                $nt->bank_id = $t->bank_id;
+                $nt->customer_id = $t->customer_id;
+                $nt->option_id = $t->option_id;
+                $nt->option_name = $t->option->name;
+                $nt->code = $t->code;
+                $nt->amount = $t->amount;
+                $nt->transaction_type = $t->transaction_type;
+                $nt->transaction_status = $t->transaction_status;
+                $nt->created_at = $t->created_at;
+                $transactions[] = $nt;
             }
         }
 

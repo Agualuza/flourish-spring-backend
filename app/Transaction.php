@@ -10,6 +10,11 @@ class Transaction extends Model
     protected $table = 'transaction';
     const MAX_VAR_RATE = 0.4;
 
+    public function option()
+    {
+        return $this->hasOne('App\Option');
+    }
+
     public static function hasOptionsTransactionsOpen($customer,$option_id,$amount){
         $transactions = DB::table('transaction')
         ->select(DB::raw('id,amount'))
