@@ -32,10 +32,10 @@ class InvestmentController extends Controller
             $transaction->amount = $amount;
             $transaction->transaction_type = $type;
             $transaction->transaction_status = "O";
-            $transaction->save();
             $done = $user->customer->makeTransaction($transaction->amount,$transaction->transaction_type,$transaction->option_id);
 
             if($done){
+                $transaction->save();
                 return APIService::sendJson(["status" => "OK","message" => "sucesso"]);
             }
             return APIService::sendJson(["status" => "NOK","message" => "transação inválida"]);
