@@ -10,7 +10,7 @@ class InvestmentController extends Controller
 {
     public function savings(Request $request){
         if($request['transaction']){
-            $u = $request['user'];
+            $u = $request['transaction']['user'];
             $uid = $u['id'];
             $token = $u['token'];
             $amount = $request['amount'];
