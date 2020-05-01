@@ -20,6 +20,7 @@ class Bank extends Model
             $response = new stdClass;
             $response->id = $customer->id;
             $response->nome = $customer->user->name;
+            $response->email = $customer->user->email;
             $response->level_id = $customer->level_id;
             $response->level = $customer->level->name;
             $response->score = $customer->score;
@@ -48,6 +49,7 @@ class Bank extends Model
         $response = new stdClass;
         $response->id = $customer->id;
         $response->nome = $customer->user->name;
+        $response->email = $customer->user->email;
         $response->level_id = $customer->level_id;
         $response->level = $customer->level->name;
         $response->score = $customer->score;
