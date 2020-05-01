@@ -82,4 +82,19 @@ class OptionController extends Controller
         
         return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
     }
+
+    public function soon(Request $request){
+        if(isset($request['credentials'])){
+            $user = User::getUserByToken($request['credentials']['user_id'],$request['credentials']['token']);
+
+            if($user == null){
+                return APIService::sendJson(["status" => "NOK","message" => "token inválido"]);
+            }
+
+            return APIService::sendJson(["status" => "OK", "response" => "Que pena, ainda não possuimos essa opção de investimento." , "message" => "sucesso"]);
+        } 
+        
+        return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+    }
+    
 }

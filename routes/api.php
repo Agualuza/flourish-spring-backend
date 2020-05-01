@@ -24,3 +24,7 @@ Route::post('customer/wallet', ['middleware' => 'cors', 'uses' => 'CustomerContr
 Route::post('customer/load/transaction', ['middleware' => 'cors', 'uses' => 'CustomerController@loadTransactions']);
 Route::post('general/load/stock', ['middleware' => 'cors', 'uses' => 'OptionController@stock']);
 Route::post('general/load/cripto', ['middleware' => 'cors', 'uses' => 'OptionController@cripto']);
+Route::post('general/load/funds', ['middleware' => 'cors', 'uses' => 'OptionController@soon']);
+Route::post('general/load/realstate', ['middleware' => 'cors', 'uses' => 'OptionController@soon']);
+Route::post('general/load/stablecoins', ['middleware' => 'cors', 'uses' => 'OptionController@soon']);
+Route::post('general/load/teasure', ['middleware' => 'cors', 'uses' => 'OptionController@soon']);
