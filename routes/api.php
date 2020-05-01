@@ -23,3 +23,4 @@ Route::post('customer/transaction', ['middleware' => 'cors', 'uses' => 'Investme
 Route::post('customer/wallet', ['middleware' => 'cors', 'uses' => 'CustomerController@wallet']);
 Route::post('customer/load/transaction', ['middleware' => 'cors', 'uses' => 'CustomerController@loadTransactions']);
 Route::post('general/load/stock', ['middleware' => 'cors', 'uses' => 'OptionController@stock']);
+Route::post('general/load/cripto', ['middleware' => 'cors', 'uses' => 'OptionController@cripto']);

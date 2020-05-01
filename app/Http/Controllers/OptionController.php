@@ -60,4 +60,26 @@ class OptionController extends Controller
         
         return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
     }
+
+    public function cripto(Request $request){
+        if(isset($request['credentials'])){
+            $user = User::getUserByToken($request['credentials']['user_id'],$request['credentials']['token']);
+
+            if($user == null){
+                return APIService::sendJson(["status" => "NOK","message" => "token inválido"]);
+            }
+
+            $service = new APIService;
+
+            $url = "https://api.hgbrasil.com/finance";
+            
+            $r = $service->getHttpRequest($url);
+            $r["body"]->results->currencies->BTC->code = "BTC";
+            $response = $r["body"]->results->currencies->BTC;
+
+            return APIService::sendJson(["status" => "OK", "response" => $response , "message" => "sucesso"]);
+        } 
+        
+        return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+    }
 }
