@@ -46,7 +46,7 @@ class Transaction extends Model
             $rebalanceTransaction->option_id = $option_id;
             $rebalanceTransaction->amount = $diff;
             $rebalanceTransaction->transaction_type = "B";
-            $rebalanceTransaction->transaction_status = "C";
+            $rebalanceTransaction->transaction_status = "O";
             $rebalanceTransaction->rebalanced = 1;
             $rebalanceTransaction->save();
         }
