@@ -28,3 +28,4 @@ Route::post('general/load/funds', ['middleware' => 'cors', 'uses' => 'OptionCont
 Route::post('general/load/realstate', ['middleware' => 'cors', 'uses' => 'OptionController@soon']);
 Route::post('general/load/stablecoins', ['middleware' => 'cors', 'uses' => 'OptionController@soon']);
 Route::post('general/load/teasure', ['middleware' => 'cors', 'uses' => 'OptionController@soon']);
+Route::post('bank/load/customer', ['middleware' => 'cors', 'uses' => 'BankController@loadCustomers']);
