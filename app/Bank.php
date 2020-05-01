@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use App\Customer;
+use App\Transaction;
 use stdClass;
 
 class Bank extends Model
@@ -54,6 +56,26 @@ class Bank extends Model
         $response->cpf = $customer->cpf;
         $response->created_at = $customer->created_at;
         $response->updated_at = $customer->updated_at;
+
+        return $response;
+    }
+
+    public function loadDashData(){
+        $customers = Customer::where('bank_id', $this->id)->count();
+        $balance = DB::table('customer')
+        ->select(DB::raw('sum(balance) as balance'))
+        ->whereRaw('bank_id = ?',[$this->id])
+        ->get();
+        $cash = DB::table('customer')
+        ->select(DB::raw('sum(cash) as cash'))
+        ->whereRaw('bank_id = ?',[$this->id])
+        ->get();
+        $transactions = Transaction::whereRaw('bank_id = ? AND rebalanced = 0', [$this->id])->count();
+        $response = new stdClass;
+        $response->customers = $customers;
+        $response->balance = $balance[0]->balance;
+        $response->cash = $cash[0]->cash;
+        $response->transactions = $transactions;
 
         return $response;
     }

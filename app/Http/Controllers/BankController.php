@@ -34,4 +34,27 @@ class BankController extends Controller
 
         return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
     }
+
+    public function dashboard(Request $request){
+        if($request['credentials']){
+            $uid = $request['credentials']['id'];
+            $token = $request['credentials']['token'];
+
+            $user = User::getUserByToken($uid,$token);
+
+            if($user->user_type != "B"){
+                return APIService::sendJson(["status" => "NOK","message" => "você não tem acesso a essa operação"]);
+            }
+
+            $response = $user->bank->loadDashData();
+
+            if($response){
+                return APIService::sendJson(["status" => "OK","response" => $response, "message" => "sucesso"]);
+            }
+
+            return APIService::sendJson(["status" => "OK","message" => "erro ao carregar"]);
+        }
+
+        return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);
+    }
 }
