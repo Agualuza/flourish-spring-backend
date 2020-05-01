@@ -17,7 +17,7 @@ class InvestmentController extends Controller
             $amount = $request['amount'];
 
             $user = User::getUserByToken($uid,$token);
-            
+
             if($user->user_type != "C"){
                 return APIService::sendJson(["status" => "NOK","message" => "você não tem acesso a essa operação"]);
             }
@@ -30,7 +30,7 @@ class InvestmentController extends Controller
             $transaction->amount = $amount;
             $transaction->transaction_type = "B";
             $transaction->transaction_status = "O";
-            $done = $user->makeTransaction($transaction->amount,$transaction->transaction_type);
+            $done = $user->customer->makeTransaction($transaction->amount,$transaction->transaction_type);
 
             if($done){
                 return APIService::sendJson(["status" => "OK","message" => "success"]);

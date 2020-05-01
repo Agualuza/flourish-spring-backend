@@ -30,4 +30,30 @@ class Customer extends Model
 
         return 0;
     }
+
+    public function makeTransaction($amount,$type){
+        if($type == "B"){
+
+            if($this->balance >= $amount){
+                $this->balance -= $amount;
+                $this->cash += $amount;
+            } else {
+                return false;
+            }
+
+        } else {
+            if($this->cash >= $amount){
+                $this->balance += $amount;
+                $this->cash -= $amount;
+            } else {
+                return false;
+            }
+        }
+        
+        if($this->save()){
+            return true;
+        }
+
+        return false;
+    }
 }

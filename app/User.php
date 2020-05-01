@@ -56,31 +56,5 @@ class User extends Authenticatable
         $user_token = $user->token ? $user->token : null;
         return $user_token == $token ? $user : null;
     }
-
-    public function makeTransaction($amount,$type){
-        if($type == "B"){
-
-            if($this->customer->balance >= $amount){
-                $this->customer->balance -= $amount;
-                $this->customer->cash += $amount;
-            } else {
-                return false;
-            }
-
-        } else {
-            if($this->customer->cash >= $amount){
-                $this->customer->balance += $amount;
-                $this->customer->cash -= $amount;
-            } else {
-                return false;
-            }
-        }
-        
-        if($this->save()){
-            return true;
-        }
-
-        return false;
-    }
     
 }
