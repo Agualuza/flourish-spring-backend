@@ -111,6 +111,8 @@ class Customer extends Model
         $arrayNextLevelPoints = [1 => 800, 2 => 2000, 3 => 3500, 4 => 5000, 5 => 0 ];
         $arrayNextLevel = [1 => "Child", 2 => "Teen", 3 => "Major", 4 => "Senior", 5 => "Max"];
 
+        $perc = ($customer->score - $customer->level->min_score)/($arrayNextLevelPoints[$customer->level_id] - $customer->level->min_score);
+
         $response = new stdClass;
         $response->id = $customer->id;
         $response->nome = $customer->user->name;
@@ -120,6 +122,7 @@ class Customer extends Model
         $response->score = $customer->score;
         $response->next_level_score = $arrayNextLevelPoints[$customer->level_id];
         $response->next_level_name = $arrayNextLevel[$customer->level_id];
+        $response->perc_to_update = $perc;
         $response->balance = $customer->balance;
         $response->cash = $customer->cash;
         $response->cpf = $customer->cpf;
