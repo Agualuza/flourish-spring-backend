@@ -12,6 +12,11 @@ class Bank extends Model
 {   
     protected $table = 'bank';
 
+    public function transaction()
+    {
+        return $this->hasMany('App\Transaction');
+    }
+
     public function loadCustomerList(){
         $customers = Customer::where('bank_id', $this->id)->get();
         $arrayResponse = [];
@@ -80,5 +85,17 @@ class Bank extends Model
         $response->transactions = $transactions;
 
         return $response;
+    }
+
+    public function loadAllNotRebalancedTransactions(){
+        $transactions = array();
+
+        foreach ($this->transaction as $t) {
+            if(!$t->rebalanced){
+                $transactions[] = ["transaction" => $t, "option_transaction" => $t->option->name];
+            }
+        }
+
+        return $transactions;
     }
 }

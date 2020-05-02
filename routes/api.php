@@ -32,3 +32,4 @@ Route::post('bank/load/customer', ['middleware' => 'cors', 'uses' => 'BankContro
 Route::post('bank/dashboard', ['middleware' => 'cors', 'uses' => 'BankController@dashboard']);
 Route::post('bank/load/transaction', ['middleware' => 'cors', 'uses' => 'BankController@loadTransactions']);
 Route::post('customer/load/score', ['middleware' => 'cors', 'uses' => 'CustomerController@loadScore']);
+Route::post('bank/load/all/transaction', ['middleware' => 'cors', 'uses' => 'BankController@loadBankTransactions']);
