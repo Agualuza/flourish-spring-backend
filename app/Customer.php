@@ -13,7 +13,7 @@ class Customer extends Model
 
     public function transaction()
     {
-        return $this->hasMany('App\Transaction');
+        return $this->hasMany('App\Transaction')->orderBy('created_at','desc');;
     }
 
     public function user()
