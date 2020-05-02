@@ -77,7 +77,7 @@ class UserController extends Controller
                 return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);
             }
 
-            return APIService::sendJson(["status" => "OK","response" => $user->customer, "message" => "success"]);
+            return APIService::sendJson(["status" => "OK","response" => ["user" => $user,"customer" => $user->customer], "message" => "success"]);
         }
 
         return APIService::sendJson(["status" => "NOK","message" => "Nenhum usuário logado"]);   
