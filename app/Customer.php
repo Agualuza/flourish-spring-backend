@@ -109,6 +109,7 @@ class Customer extends Model
     public function loadCustomer(){
         $customer = $this;
         $arrayNextLevelPoints = [1 => 800, 2 => 2000, 3 => 3500, 4 => 5000, 5 => 0 ];
+        $arrayNextLevel = [1 => "Child", 2 => "Teen", 3 => "Major", 4 => "Senior", 5 => "Max"];
 
         $response = new stdClass;
         $response->id = $customer->id;
@@ -118,6 +119,7 @@ class Customer extends Model
         $response->level = $customer->level->name;
         $response->score = $customer->score;
         $response->next_level_score = $arrayNextLevelPoints[$customer->level_id];
+        $response->next_level_name = $arrayNextLevel[$customer->level_id];
         $response->balance = $customer->balance;
         $response->cash = $customer->cash;
         $response->cpf = $customer->cpf;
