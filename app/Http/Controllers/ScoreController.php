@@ -26,7 +26,7 @@ class ScoreController extends Controller
             $score->score = $s;
             $score->save();
 
-            $updateLevel = $user->customer->updateLevel();
+            $updateLevel = $user->customer->updateLevel($score->score);
             return APIService::sendJson(["status" => "OK","response" => ["update_level" => $updateLevel], "message" => "success"]);
         }
         return APIService::sendJson(["status" => "NOK","message" => "parametros inválidos"]);

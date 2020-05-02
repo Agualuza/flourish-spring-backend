@@ -26,15 +26,16 @@ class Customer extends Model
         return $this->belongsTo('App\Level');
     }
 
-    public function updateLevel() {
+    public function updateLevel($s) {
         $level_id = null;
-        if($this->score >= 5000) {
+        $score = $this->score + $s;
+        if($score >= 5000) {
             $level_id = 5;
-        } else if($this->score >= 3500) {
+        } else if($score >= 3500) {
             $level_id = 4;
-        } else if($this->score >= 2000) {
+        } else if($score >= 2000) {
             $level_id = 3;
-        } else if($this->score >= 800) {
+        } else if($score >= 800) {
             $level_id = 2;
         } else {
             $level_id = 1;
@@ -110,7 +111,7 @@ class Customer extends Model
         $customer = $this;
         $arrayNextLevelPoints = [1 => 800, 2 => 2000, 3 => 3500, 4 => 5000, 5 => 0 ];
         $arrayNextLevel = [1 => "Child", 2 => "Teen", 3 => "Major", 4 => "Senior", 5 => "Max"];
-
+        
         $perc = ($customer->score - $customer->level->min_score)/($arrayNextLevelPoints[$customer->level_id] - $customer->level->min_score);
         $perc = round($perc * 100);
 
