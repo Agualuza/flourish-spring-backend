@@ -14,7 +14,7 @@ class Bank extends Model
 
     public function transaction()
     {
-        return $this->hasMany('App\Transaction')->orderBy('created_at','desc');
+        return $this->hasMany('App\Transaction')->orderBy('created_at','asc');
     }
 
     public function loadCustomerList(){
